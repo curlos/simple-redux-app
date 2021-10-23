@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const StyledRightSidebar = styled.div`
@@ -28,10 +29,14 @@ const MoreButton = styled.div`
 
 const RightSidebar = () => {
 
+  const name = useSelector(state => state.user.name)
+
+  console.log(name)
+
   return (
     <StyledRightSidebar>
       <ImageContainer>
-        <div>Recommneded for undefined</div>
+        <div>Recommneded for {name}</div>
         <DefaultImage>&nbsp;</DefaultImage>
       </ImageContainer>
 

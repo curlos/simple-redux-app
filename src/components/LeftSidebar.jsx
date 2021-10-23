@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const StyledLeftSideBar = styled.div`
@@ -13,6 +14,8 @@ const StyledLeftSideBar = styled.div`
 
 const LeftSidebar = () => {
 
+  const name = useSelector(state => state.user.name)
+
   return (
     <StyledLeftSideBar>
       <div><ion-icon name="home-outline"></ion-icon> Homepage</div>
@@ -25,7 +28,7 @@ const LeftSidebar = () => {
       <div><ion-icon name="time-outline"></ion-icon> Schedule</div>
       <div><ion-icon name="list-circle-outline"></ion-icon> Wishlist</div>
       <div><ion-icon name="cog-outline"></ion-icon> Settings</div>
-      <div><ion-icon name="chevron-forward-circle-outline"></ion-icon> Logout</div>
+      <div><ion-icon name="chevron-forward-circle-outline"></ion-icon> Logout ({name})</div>
     </StyledLeftSideBar>
   )
 }

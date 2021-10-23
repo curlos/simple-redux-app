@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import styled from "styled-components";
 
 const StyledHeader  = styled.div`
@@ -51,6 +52,8 @@ const SearchInput = styled.input`
 
 const Header = () => {
 
+  const name = useSelector(state => state.user.name)
+
   return (
     <StyledHeader>
       <WebsiteLogo>Miami Heat App</WebsiteLogo>
@@ -63,7 +66,9 @@ const Header = () => {
       <SearchInput placeholder="Search for something..." />
 
       <UserProfile>
-        <Circle></Circle><ion-icon name="caret-down-outline"></ion-icon>
+        <Circle></Circle>
+        <span>{name}</span>
+        <ion-icon name="caret-down-outline"></ion-icon>
       </UserProfile>
     </StyledHeader>
   )

@@ -1,3 +1,6 @@
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { update, remove, addHello } from '../redux/userSlice'
 import styled from 'styled-components'
 
 const StyledMainBody = styled.div`
@@ -85,12 +88,35 @@ const UpdateButton = styled.button`
 
 const MainBody = () => {
 
+  const user = useSelector(state => state.user)
+
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
+
+  const handleUpdate = (e) => {
+    e.preventDefault()
+    dispatch(update({name: username, email}))
+  }
+
+  const handleUpdateHello = (e) => {
+    e.preventDefault()
+    dispatch(addHello({name: username, email}))
+  }
+
+  const handleRemove = (e) => {
+    e.preventDefault()
+    console.log('removing')
+    dispatch(remove())
+  }
+
   return (
     <StyledMainBody>
       <Header>Update Your Account</Header>
       <DeleteAccountContainer>
-        <WarningMessage>Deleting account cannot be undone! You should confirm your password to delete your account.</WarningMessage>
-        <DeleteAccountButton>Delete Account</DeleteAccountButton>
+        <WarningMessage>Deleting account cannot be undone <strong>{user.name}</strong>! You should confirm your password to delete your account.</WarningMessage>
+        <DeleteAccountButton onClick={handleRemove}>Delete Account</DeleteAccountButton>
       </DeleteAccountContainer>
       
       <ProfileInfoContainer>
@@ -102,14 +128,14 @@ const MainBody = () => {
 
       <UserInputs>
         <div>Username</div>
-        <UserInput />
+        <UserInput value={username} onChange={(e) => setUsername(e.target.value)} placeholder={user.name}/>
         <div>Email</div>
-        <UserInput />
+        <UserInput value={email} onChange={(e) => setEmail(e.target.value)} placeholder={user.email}/>
         <div>Password</div>
-        <UserInput />
+        <UserInput value={password} onChange={(e) => setPassword(e.target.value)}/>
       </UserInputs>
 
-      <UpdateButton>Update</UpdateButton>
+      <UpdateButton onClick={handleUpdateHello}>Update</UpdateButton>
     </StyledMainBody>
   )
 }
